@@ -1,0 +1,23 @@
+{
+    "user": 
+    {
+        "userName": ["user001"],
+        "userPassword": ["user1234"],
+        "userEmail": ["user001@gmail.com"],
+        "PhoneNum": ["11111111"]
+    },
+    "companyManager":
+    {
+        "companyManagerName": ["cm001"],
+        "companyManagerPassword": ["cm123456789"],
+        "companyManagerEmail": ["cm001@gmail.com"],
+        "PhoneNum": ["22222222"]
+    },
+    "propertyAgent":
+    {
+        "propertyAgentName": ["pa101"],
+        "propertyAgentPassword": ["pa13579"],
+        "companyManagerEmail": ["pa101@gmail.com"],
+        "PhoneNum": ["33333333"]
+    }
+}

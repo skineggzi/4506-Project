@@ -1,0 +1,381 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Agents Info|Dream House online</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="../assets/images/icon/favicon.ico">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/themify-icons.css">
+    <link rel="stylesheet" href="../assets/css/metisMenu.css">
+    <link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../assets/css/slicknav.min.css">
+    <!-- amchart css -->
+    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+    <!-- others css -->
+    <link rel="stylesheet" href="../assets/css/typography.css">
+    <link rel="stylesheet" href="../assets/css/default-css.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+    <!-- modernizr css -->
+    <script src="../assets/js/vendor/modernizr-2.8.3.min.js">
+    </script>
+
+    <!--function part-->
+    <script src="../assets/js/jquery-1.11.1.js"></script>
+    <script>
+        $(document).ready(function(){
+            //load layout
+            $(".menu-inner").load("../property_agent_layout/property_agent_menu_inner.html");
+            $("#message").load("../property_agent_layout/property_agent_message.html");
+            $("#activity").load("../property_agent_layout/property_agent_activity.html");
+            $("#settings").load("../property_agent_layout/property_agent_settings.html");
+
+            $("#hidden_row1").hide();
+            $("#hidden_row2").hide();
+            $("#hidden_row3").hide();
+
+            $("#list1").click(function(){
+                $("#hidden_row1").slideToggle();
+                $("#detail1").toggle();
+            });
+            $("#list2").click(function(){
+                $("#hidden_row2").slideToggle();
+                $("#detail2").toggle();
+            });
+            $("#list3").click(function(){
+                $("#hidden_row3").slideToggle();
+                $("#detail3").toggle();
+            });
+
+            $(".list-group").on("click", "#accept", function(){
+            //$("#accept").click(function(){
+                var name = $(this).closest(".list-group-item").find("h5").text();
+                if (confirm('Are you sure to Accept '+"\""+name+"\""+' appointment?')) {
+                    $(this).closest(".list-group-item").find("#showAccept").html("(Accepted)");
+                    $(this).closest(".list-group-item").find("button").hide();
+                }
+            });
+
+            $(".list-group").on("click", "#reject", function(){
+                var name = $(this).closest(".list-group-item").find("h5").text();
+                if (confirm('Are you sure to Reject '+"\""+name+"\""+' appointment?')) {
+                    $(this).closest(".list-group-item").find("#showReject").html("(Rejected)");
+                    $(this).closest(".list-group-item").find("button").hide();
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <!-- preloader area start -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+    <!-- preloader area end -->
+    <!-- page container area start -->
+    <div class="page-container">
+        <!-- sidebar menu area start -->
+        <div class="sidebar-menu">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <a href="property_agent_index.html"><img src="../assets/images/icon/logo.png" alt="logo"></a>
+                </div>
+            </div>
+            <!--Bar setting-->
+            <div class="main-menu">
+                <div class="menu-inner"></div>
+            </div>
+            <!--Bar setting end-->
+        </div>
+        <!-- sidebar menu area end -->
+        <!-- main content area start -->
+        <div class="main-content">
+            <!-- header area start -->
+            <div class="header-area">
+                <div class="row align-items-center">
+                    <!-- nav and search button -->
+                    <div class="col-md-6 col-sm-8 clearfix">
+                        <div class="nav-btn pull-left">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div class="search-box pull-left">
+                            <form action="#">
+                                <input type="text" name="search" placeholder="Search..." required>
+                                <i class="ti-search"></i>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- profile info & task notification -->
+                    <div class="col-md-6 col-sm-4 clearfix">
+                        <ul class="notification-area pull-right">
+                            <li id="full-view"><i class="ti-fullscreen"></i></li>
+                            <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
+<!--                        <li class="dropdown">
+                                <i class="ti-bell dropdown-toggle" data-toggle="dropdown">
+                                    <span>2</span>
+                                </i>
+                                <div class="dropdown-menu bell-notify-box notify-box">
+                                    <span class="notify-title">You have 3 new notifications <a href="#">view all</a></span>
+                                    <div class="nofity-list">
+                                        <a href="#" class="notify-item">
+                                            <div class="notify-thumb"><i class="ti-key btn-danger"></i></div>
+                                            <div class="notify-text">
+                                                <p>You have Changed Your Password</p>
+                                                <span>Just Now</span>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="notify-item">
+                                            <div class="notify-thumb"><i class="ti-comments-smiley btn-info"></i></div>
+                                            <div class="notify-text">
+                                                <p>New Commetns On Post</p>
+                                                <span>30 Seconds ago</span>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="notify-item">
+                                            <div class="notify-thumb"><i class="ti-key btn-success"></i></div>
+                                            <div class="notify-text">
+                                                <p>Some special like you</p>
+                                                <span>Just Now</span>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="notify-item">
+                                            <div class="notify-thumb"><i class="ti-comments-smiley btn-info"></i></div>
+                                            <div class="notify-text">
+                                                <p>New Commetns On Post</p>
+                                                <span>30 Seconds ago</span>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="notify-item">
+                                            <div class="notify-thumb"><i class="ti-key btn-success"></i></div>
+                                            <div class="notify-text">
+                                                <p>Some special like you</p>
+                                                <span>Just Now</span>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="notify-item">
+                                            <div class="notify-thumb"><i class="ti-key btn-danger"></i></div>
+                                            <div class="notify-text">
+                                                <p>You have Changed Your Password</p>
+                                                <span>Just Now</span>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="notify-item">
+                                            <div class="notify-thumb"><i class="ti-key btn-danger"></i></div>
+                                            <div class="notify-text">
+                                                <p>You have Changed Your Password</p>
+                                                <span>Just Now</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+-->
+                            <li class="dropdown" id="message">
+                            </li>
+                            <li class="settings-btn">
+                                <i class="ti-settings"></i>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- header area end -->
+
+
+            
+            <!-- page title area start -->
+            <div class="page-title-area">
+                <div class="row align-items-center">
+                    <div class="col-sm-6">
+                        <div class="breadcrumbs-area clearfix">
+                            <h4 class="page-title pull-left">Dream House online | <img src="..\assets\images\agents\real-estate-agent.png" width="25px"> Agents  &nbsp;</h4>
+                            <ul class="breadcrumbs pull-left">
+                                <li><a href="property_agent_index.html">Home</a></li>
+                                <li><span>Appointment Information</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 clearfix" id="userAc_info">
+                        <div class="user-profile pull-right">
+                            <img class="avatar user-thumb" src="../assets/images/author/avatar.png" alt="avatar">
+                            <h4 class="user-name dropdown-toggle" data-toggle="dropdown">
+                                <a id="header_userName">pa101</a>
+                                <i class="fa fa-angle-down"></i>
+                            </h4>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="property_agent_info.html">Appointment Information</a>
+                                <a class="dropdown-item" href="#">Settings</a>
+                                <a class="dropdown-item" href="../index.html">Log Out</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main-content-inner">
+                <div class="row">
+                    <!-- Striped table start -->
+                    <div class="col mt-5">
+                        <div class="card">
+                            <div class="card-body">   
+                                <!--Edit button-->
+                                <h4 class="header-title">Appointment Information</h4>
+                                <!--Edit button END-->
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                        <li class="page-item">
+                                            <a class="page-link" href="#" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                                <span class="sr-only">Previous</span>
+                                            </a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                                <div class="list-group" style="cursor: pointer;">
+                                    <div class="list-group-item list-group-item-action flex-column align-items-start" id="list1">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">111 Apartment<a id="showAccept" style="color: green;"></a><a id="showReject" style="color: red;"></a></h5>
+                                            <small class="text-muted">10 min ago</small>
+                                        </div>
+                                        <p class="mb-1">Date: 19/10/2020</p>
+                                        <p class="mb-1">Time: 12:00</p>
+                                        <div id="hidden_row1">
+                                            <p class="mb-1">Email: user001@gmail.com</p>
+                                            <p class="mb-1">Tel: 11111111</p>
+                                            <p class="mb-1">Comment: Please meet at Yuen Long</p>
+                                            <button id="accept" type="button" class="btn btn-success mb-3" style="margin: auto; font-size: large;">
+                                                Accept
+                                            </button>
+                                            <button id="reject" type="button" class="btn btn-danger mb-3" style="margin: auto; font-size: large;">
+                                                Reject
+                                            </button>
+                                        </div>
+                                        <small id="detail1" style="color: blue;">Click for show more details...</small>
+                                    </div>
+
+                                    <div class="list-group-item list-group-item-action flex-column align-items-start" id="list2">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">222 Apartment<a id="showAccept" style="color: green;"></a><a id="showReject" style="color: red;"></a></h5>
+                                            <small class="text-muted">2 days ago</small>
+                                        </div>
+                                        <p class="mb-1">Date: 21/10/2020</p>
+                                        <p class="mb-1">Time: 13:00</p>
+                                        <div id="hidden_row2">
+                                            <p class="mb-1">Email: user007@gmail.com</p>
+                                            <p class="mb-1">Tel: 7777777</p>
+                                            <p class="mb-1">Comment: Please meet at Yuen Long</p>
+                                            <button id="accept" type="button" class="btn btn-success mb-3" style="margin: auto; font-size: large;">
+                                                Accept
+                                            </button>
+                                            <button id="reject" type="button" class="btn btn-danger mb-3" style="margin: auto; font-size: large;">
+                                                Reject
+                                            </button>
+                                        </div>
+                                        <small id="detail2" style="color: blue;">Click for show more details...</small>
+                                    </div>
+                                    <div class="list-group-item list-group-item-action flex-column align-items-start" id="list3">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">333 Apartment<a id="showAccept" style="color: green;"></a><a id="showReject" style="color: red;"></a></h5>
+                                            <small class="text-muted">3 days ago</small>
+                                        </div>
+                                        <p class="mb-1">Date: 29/10/2020</p>
+                                        <p class="mb-1">Time: 15:00</p>
+                                        <div id="hidden_row3">
+                                            <p class="mb-1">Email: user001@gmail.com</p>
+                                            <p class="mb-1">Tel: 11111111</p>
+                                            <p class="mb-1">Comment: What should I bring?</p>
+                                            <button id="accept" type="button" class="btn btn-success mb-3" style="margin: auto; font-size: large;">
+                                                Accept
+                                            </button>
+                                            <button id="reject" type="button" class="btn btn-danger mb-3" style="margin: auto; font-size: large;">
+                                                Reject
+                                            </button>
+                                        </div>
+                                        <small id="detail3" style="color: blue;">Click for show more details...</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <!-- Striped table end -->
+                </div>
+            </div>
+        </div>
+        <!-- main content area end -->
+        <!-- footer area start-->
+        <footer>
+            <div class="footer-area">
+                <p>© Copyright 2018. All right reserved. Template by <a href="https://colorlib.com/wp/">Colorlib</a>.</p>
+            </div>
+        </footer>
+        <!-- footer area end-->
+    </div>
+
+
+    <!-- page container area end -->
+    <!-- offset area start -->
+    <div class="offset-area">
+        <div class="offset-close"><i class="ti-close"></i></div>
+        <ul class="nav offset-menu-tab">
+            <li><a class="active" data-toggle="tab" href="#activity">Activity</a></li>
+            <li><a data-toggle="tab" href="#settings">Settings</a></li>
+        </ul>
+        <div class="offset-content tab-content">
+            <div id="activity" class="tab-pane fade in show active">
+                
+            </div>
+            <div id="settings" class="tab-pane fade">
+                
+            </div>
+        </div>
+    </div>
+    <!-- offset area end -->
+    <!-- jquery latest version -->
+    <script src="../assets/js/vendor/jquery-2.2.4.min.js"></script>
+    <!-- bootstrap 4 js -->
+    <script src="../assets/js/popper.min.js"></script>
+    <script src="../assets/js/bootstrap.min.js"></script>
+    <script src="../assets/js/owl.carousel.min.js"></script>
+    <script src="../assets/js/metisMenu.min.js"></script>
+    <script src="../assets/js/jquery.slimscroll.min.js"></script>
+    <script src="../assets/js/jquery.slicknav.min.js"></script>
+
+    <!-- others plugins -->
+    <script src="../assets/js/plugins.js"></script>
+    <script src="../assets/js/scripts.js"></script>
+</body>
+
+</html>

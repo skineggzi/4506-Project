@@ -1,0 +1,762 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Agents|Dream House online</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="../assets/images/icon/favicon.ico">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/themify-icons.css">
+    <link rel="stylesheet" href="../assets/css/metisMenu.css">
+    <link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../assets/css/slicknav.min.css">
+    <!-- amchart css -->
+    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+    <!-- others css -->
+    <link rel="stylesheet" href="../assets/css/typography.css">
+    <link rel="stylesheet" href="../assets/css/default-css.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+    <!-- modernizr css -->
+    <script src="../assets/js/vendor/modernizr-2.8.3.min.js">
+    </script>
+
+    <!--function part-->
+    <script src="../assets/js/jquery-1.11.1.js"></script>
+    <script>
+        function myFunction() {
+          var count, name,price,Rprice, district,size,agents,RS,RSfilter, agentsfilter, sizefilter, districtfilter,Rpricefilter, namefilter,pricefilter, table, tr, td, i, txtValue;
+          name = document.getElementById("name");
+          namefilter = name.value.toUpperCase();
+
+          price = document.getElementById("price");
+          pricefilter = price.value.toUpperCase();
+
+          Rprice = document.getElementById("Rprice");
+          Rpricefilter = Rprice.value.toUpperCase();
+
+          district = document.getElementById("district");
+          districtfilter = district.value.toUpperCase();
+
+          size = document.getElementById("size");
+          sizefilter = size.value.toUpperCase();
+
+
+         
+          
+          RS = document.getElementById("RS");
+          RSfilter = RS.value.toUpperCase();
+
+          table = document.getElementById("myTable");
+          tr = table.getElementsByTagName("tr");
+
+          count=tr.length;
+         
+          for (i = 0; i < tr.length; i++) {
+            //name filter
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+              txtValue = td.textContent || td.innerText;
+              if (txtValue.toUpperCase().indexOf(namefilter) > -1) {
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+                count--;
+                continue;
+              }
+            }
+            
+            //district filter
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+              txtValue = td.textContent || td.innerText;
+              if (txtValue.toUpperCase().indexOf(districtfilter) > -1) {
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+                count--;
+                continue;
+              }
+            }
+            
+            //selling price filter
+            td = tr[i].getElementsByTagName("td")[2];
+            if (td) {
+              txtValue = td.textContent || td.innerText;
+              if (txtValue.toUpperCase().indexOf(pricefilter) > -1) {
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+                count--;
+                continue;
+              }
+            }
+
+            //Rental price filter
+            td = tr[i].getElementsByTagName("td")[3];
+            if (td) {
+              txtValue = td.textContent || td.innerText;
+              if (txtValue.toUpperCase().indexOf(Rpricefilter) > -1) {
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+                count--;
+                continue;
+              }
+            }
+
+            //size filter
+            td = tr[i].getElementsByTagName("td")[4];
+            if (td) {
+              txtValue = td.textContent || td.innerText;
+              if (txtValue.toUpperCase().indexOf(sizefilter) > -1) {
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+                count--;
+                continue;
+              }
+            }
+
+            
+            //RSfilter
+            td = tr[i].getElementsByTagName("td")[7];
+            if (td) {
+              txtValue = td.textContent || td.innerText;
+              if (txtValue.toUpperCase().indexOf(RSfilter) > -1) {
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+                count--;
+                continue;
+              }
+            }
+
+            
+          }
+          if(count<=1){
+              alert("No result found! Filter reset!!");
+              clearFunction();
+          }
+          
+
+        }
+
+        function clearFunction(){
+            document.getElementById("name").value="";
+            document.getElementById("price").getElementsByTagName('option')[0].selected = 'selected';
+            document.getElementById("Rprice").getElementsByTagName('option')[0].selected = 'selected';
+            document.getElementById("district").getElementsByTagName('option')[0].selected = 'selected';
+            document.getElementById("size").getElementsByTagName('option')[0].selected = 'selected';
+            myFunction();
+        }
+    </script>
+    <script>
+        $(document).ready(function(){
+            //load layout
+            $(".menu-inner").load("../property_agent_layout/property_agent_menu_inner.html");
+            $("#message").load("../property_agent_layout/property_agent_message.html");
+            $("#activity").load("../property_agent_layout/property_agent_activity.html");
+            $("#settings").load("../property_agent_layout/property_agent_settings.html");
+
+            var popup = document.getElementById("myPopup");
+
+            popup.classList.toggle("show");
+
+
+            //pin icon toggle
+            $("#myTable tbody").on("click", "#pin", function(){
+                $(this).toggleClass("ti-pin-alt");
+                $(this).closest("tr").toggleClass("change_red");
+            });
+            //hide icon toggle
+            $("#myTable tbody").on("click", "#hide", function(){
+                $(this).toggleClass("fa-eye-slash");
+                $(this).closest("tr").toggleClass("change_grey");
+            });
+            //remove function
+            $("#myTable tbody").on("click", "#close", function(){
+                if (confirm('Are you sure you want to remove this property')){
+                    $(this).closest("tr").hide();
+                }
+                
+            });
+
+
+            const url_string = window.location.search;
+            const url_params = new URLSearchParams(url_string);
+
+            if(url_params!=""){
+                
+                editInfo();
+            }
+        });
+        function editInfo(){
+            const url_string = window.location.search;
+            const url_params = new URLSearchParams(url_string);
+            if(url_params.toString().substr(0, 3)=="Pna"){
+                const Pname = url_params.get("Pname");
+                const d = url_params.get("d");
+                const sPrice = '$'+url_params.get("sPrice")+'k';
+                const rPrice = '$'+url_params.get("rPrice")+'k/month';
+                const area = url_params.get("area");
+                const ft = url_params.get("ft");
+                const isSale = url_params.get("isSale");
+
+
+                
+                $("#Pname").html(Pname);
+                $("#d").html(d);
+                $("#sPrice").html(sPrice);
+                $("#rPrice").html(rPrice);
+                $("#area").html(area);
+                $("#ft").html(ft);
+                $("#isSale").html(isSale);
+            }if(url_params.toString().substr(0, 3)=="new"){
+                
+                const Pname = url_params.get("Pname");
+                const d = url_params.get("d");
+                const sPrice = '$'+url_params.get("sPrice")+'k';
+                const rPrice = '$'+url_params.get("rPrice")+'k/month';
+                const area = url_params.get("area");
+                const ft = url_params.get("ft");
+                const isSale = url_params.get("isSale");
+                
+
+                $("#myTable tr:last").prev().after("<tr id='close5'><td>"+Pname+"</td><td>"+d+"</td><td>"+sPrice+"</td><td>"+rPrice+"</td><td>"+area+"</td><td>"+ft+"</td><td>"+isSale+"</td><td><i class='ti-location-pin' style='color: rgb(44, 135, 255);'></i></td><td><i class='ti-pencil' style='color: rgb(44, 135, 255);''></i></td>"+
+                                                      '<td><i class="ti-pin2" id="pin"></i></td>'+
+                                                        '<td><i class="fa fa-eye" id="hide"></i></td>'+
+                                                        '<td><i class="ti-close" id="close"></i></td></tr>');         
+            }
+            
+
+        }
+        
+        
+        function popupClose(){
+            var popup = document.getElementById("myPopup");
+
+            popup.hidden = true;
+
+        }
+        function popupClose2(){
+            var popup1 = document.getElementById("myPopup2");
+
+            popup1.hidden = true;
+
+        }
+
+    </script>
+<style>
+    /*icon color*/
+    .change_red{
+        background-color:red;
+    }
+    .change_grey{
+        background-color:grey;
+    }
+
+    .popup {
+    position: relative;
+    display: inline-block;
+   
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    }
+    .popup .popuptext {
+    visibility: hidden;
+    width: 100px;
+    background-color: rgba(153, 0, 8, 0.938);
+    font-weight: bolder;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    border-radius: 6px;
+    padding: 4px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -50px;
+    cursor: pointer;
+
+    }
+    /* Popup arrow */
+    .popup .popuptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgb(255, 47, 47) transparent transparent transparent;
+    }
+    .popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+    }
+    @-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 1;}
+    }
+
+    @keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+    }
+</style>
+</head>
+
+<body>
+    <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <!-- preloader area start -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+    <!-- preloader area end -->
+    <!-- page container area start -->
+    <div class="page-container">
+        <!-- sidebar menu area start -->
+        <div class="sidebar-menu">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <a href="property_agent_index.html"><img src="../assets/images/icon/logo.png" alt="logo"></a>
+                </div>
+            </div>
+            <!--Bar setting-->
+            <div class="main-menu">
+                <div class="menu-inner"></div>
+            </div>
+            <!--Bar setting end-->
+        </div>
+        <!-- sidebar menu area end -->
+        <!-- main content area start -->
+        <div class="main-content">
+            <!-- header area start -->
+            <div class="header-area">
+                <div class="row align-items-center">
+                    <!-- nav and search button -->
+                    <div class="col-md-6 col-sm-8 clearfix">
+                        <div class="nav-btn pull-left">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div class="search-box pull-left">
+                            <form action="#">
+                                <input type="text" name="search" placeholder="Search..." required>
+                                <i class="ti-search"></i>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- profile info & task notification -->
+                    <div class="col-md-6 col-sm-4 clearfix">
+                        <ul class="notification-area pull-right">
+                            <li id="full-view"><i class="ti-fullscreen"></i></li>
+                            <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
+<!--                        <li class="dropdown">
+                                <i class="ti-bell dropdown-toggle" data-toggle="dropdown">
+                                    <span>2</span>
+                                </i>
+                                <div class="dropdown-menu bell-notify-box notify-box">
+                                    <span class="notify-title">You have 3 new notifications <a href="#">view all</a></span>
+                                    <div class="nofity-list">
+                                        <a href="#" class="notify-item">
+                                            <div class="notify-thumb"><i class="ti-key btn-danger"></i></div>
+                                            <div class="notify-text">
+                                                <p>You have Changed Your Password</p>
+                                                <span>Just Now</span>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="notify-item">
+                                            <div class="notify-thumb"><i class="ti-comments-smiley btn-info"></i></div>
+                                            <div class="notify-text">
+                                                <p>New Commetns On Post</p>
+                                                <span>30 Seconds ago</span>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="notify-item">
+                                            <div class="notify-thumb"><i class="ti-key btn-primary"></i></div>
+                                            <div class="notify-text">
+                                                <p>Some special like you</p>
+                                                <span>Just Now</span>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="notify-item">
+                                            <div class="notify-thumb"><i class="ti-comments-smiley btn-info"></i></div>
+                                            <div class="notify-text">
+                                                <p>New Commetns On Post</p>
+                                                <span>30 Seconds ago</span>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="notify-item">
+                                            <div class="notify-thumb"><i class="ti-key btn-primary"></i></div>
+                                            <div class="notify-text">
+                                                <p>Some special like you</p>
+                                                <span>Just Now</span>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="notify-item">
+                                            <div class="notify-thumb"><i class="ti-key btn-danger"></i></div>
+                                            <div class="notify-text">
+                                                <p>You have Changed Your Password</p>
+                                                <span>Just Now</span>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="notify-item">
+                                            <div class="notify-thumb"><i class="ti-key btn-danger"></i></div>
+                                            <div class="notify-text">
+                                                <p>You have Changed Your Password</p>
+                                                <span>Just Now</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+-->
+                            <li class="dropdown" id="message">
+                            </li>
+                            <li class="settings-btn">
+                                <i class="ti-settings"></i>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- header area end -->
+
+
+
+            
+            <!-- page title area start -->
+            <div class="page-title-area">
+                <div class="row align-items-center">
+                    <div class="col-sm-6">
+                        <div class="breadcrumbs-area clearfix">
+                            <h4 class="page-title pull-left">Dream House online | <img src="..\assets\images\agents\real-estate-agent.png" width="25px"> Agents - My Property List &nbsp;</h4>
+                            <ul class="breadcrumbs pull-left">
+                                <li><a href="property_agent_index.html">Home</a></li>
+                                <!--   <li><span></span></li>   -->
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 clearfix" id="userAc_info">
+                        <div class="user-profile pull-right">
+                            <img class="avatar user-thumb" src="../assets/images/author/avatar.png" alt="avatar">
+                            <h4 class="user-name dropdown-toggle" data-toggle="dropdown">
+                                <a id="header_userName">pa101</a>
+                                <i class="fa fa-angle-down"></i>
+                            </h4>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="property_agent_info.html">Personal Information</a>
+                                <a class="dropdown-item" href="../index.html">Log Out</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- page title area end -->
+            <div class="main-content-inner">
+                <div class="card-area">
+                    <div class="row">
+                    <!-- Body here -->
+                    
+                    <div class="col-12 mt-5">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="header-title">Real-Time Filter <i class="ti-filter"></i>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-5 col-sm-6" >
+                                        <div class="form-group">
+                                            <label for="example-text-input"  class="col-form-label" >Property Name &nbsp;<i class="ti-search"></i></label>
+                                            <input class="form-control" type="text" placeholder="Type The Property Name here !"  id="name" onkeyup="myFunction()">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-4 col-sm-6" >
+                                        
+                                        <div class="form-group">
+                                            <label class="col-form-label">Rental / Sale <i class="ti-tag"></i></label>
+                                            <select class="form-control" id="RS" onchange="myFunction()">
+                                                <option value="">Default</option>
+                                                <option value="Rental">Rental</option>
+                                                <option value="Sale">Sale</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-4 col-sm-6" >
+                                        
+                                        <div class="form-group">
+                                            <label class="col-form-label">District <i class="ti-location-pin"></i></label>
+                                            <select class="form-control" id="district" onchange="myFunction()">
+                                                <option value="">Default</option>
+                                                <option value="Yuen Long">Yuen Long</option>
+                                                <option value="Tuen Mun">Tuen Mun</option>
+                                                <option value="MongKok">MongKok</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-3" >
+                                        
+                                        <div class="form-group">
+                                            <label class="col-form-label">Selling Price  <i class="ti-money"></i></label>
+                                            <select class="form-control" id="price" onchange="myFunction()">
+                                                <option value="">Default</option>
+                                                <option value="below">Below $3000k</option>
+                                                <option value="3">$3000k - $4999k</option>
+                                                <option value="5">$5000k - $6999k</option>
+                                                <option value="7">$7000k - $8999k</option>
+                                                <option value="above">Above $9000k</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-3" >
+                                        
+                                        <div class="form-group">
+                                            <label class="col-form-label">Rental Price <i class="ti-money"></i></label>
+                                            <select class="form-control" id="Rprice" onchange="myFunction()">
+                                                <option value="">Default</option>
+                                                <option value="below">Below $4k / month</option>
+                                                <option value="3">$4k - $6k / month</option>
+                                                <option value="5">$7k - $9k / month</option>
+                                                <option value="7">$10k - $12k / month</option>
+                                                <option value="above">Above $12k / month</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3 col-md-3 col-sm-3" >
+                                        
+                                        <div class="form-group">
+                                            <label class="col-form-label">Saleable area <i class="ti-ruler-pencil"></i></label>
+                                            <select class="form-control" id="size" onchange="myFunction()">
+                                                <option value="">Default</option>
+                                                <option value="below">Below 300 square feet</option>
+                                                <option value="3">300 - 499 square feet</option>
+                                                <option value="5">500 - 699 square feet</option>
+                                                <option value="7">700 - 899 square feet</option>
+                                                <option value="above">Above 900 square feet</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-3" >
+                                        
+                                        
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12" style="padding-top: 10px;" >
+                                        <button type="button" class="btn btn-danger mb-3" style="float: right;" onclick="clearFunction();myFunction();">Clear Filter</button>
+                                    </div>
+                                    
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 mt-5">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="header-title">Property 
+                                    
+                                </div>
+                                <div class="single-table">
+                                    <div class="table-responsive">
+                                        <table class="table text-center" id="myTable">
+                                            <thead class="text-uppercase bg-primary">
+                                                <tr class="text-white">
+                                                    <th scope="col">Property Name</th>
+                                                    <th scope="col">District</th>
+                                                    <th scope="col">Selling Price</th>
+                                                    <th scope="col">Rental Price per month</th>
+                                                    <th scope="col">Saleable area</th>
+                                                    <th scope="col">Flat/Floor</th>
+                                                    <th scope="col" hidden>Upload by</th>
+                                                    <th scope="col">Rental/ Sale</th>
+                                                    <th scope="col">Detail</th>
+                                                    <th scope="col">Edit</th>
+                                                    <th scope="col">Pin</th>
+                                                    <th scope="col">Hide</th>
+                                                    <th scope="col">Remove</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr> 
+                                                    <td id="Pname">111 Apartment</td>
+                                                    <td id="d">Yuen Long</td>
+                                                    <td hidden>3000</td>
+                                                    <th id="sPrice">$3120k</th>
+                                                    <td hidden>Above</td>
+                                                    <th id="rPrice">N/A</th>
+                                                    <td hidden>3</td>
+                                                    <th id="area">300 square feet</th>
+                                                    <td id="ft">A / 1</td>
+                                                    <td hidden>Tim</td>
+                                                    <td id="isSale">Sale</td>
+                                                    
+                                                    <td><div class="popup" ><a href="propertyA1.html"><i class="ti-location-pin"></i></a> 
+                                                        <span class="popuptext" id="myPopup" onclick="popupClose()"><b> &nbsp;Click <i class="ti-close" style="color: rgb(255, 255, 255);"> </i><br>for more detail</b></span>
+                                                      </div></td>
+                                                      <td><i class="ti-pencil" onclick="window.location.href='property_edit_info.html'" style="color: rgb(44, 135, 255);"></i></td>
+                                                      <td><i class="ti-pin2" id="pin"></i></td>
+                                                        <td><i class="fa fa-eye" id="hide"></i></td>
+                                                        <td><i class="ti-close" id="close"></i></td>
+
+                                                </tr>
+                                                <tr hidden>
+                                                   
+                                                    <td>111 Apartment</td>
+                                                    <td>Yuen Long</td>
+                                                    <td hidden>5000</td>
+                                                    <th >$5120k</th>
+                                                    <td hidden>NA</td>
+                                                    <th >N/A</th>
+                                                    <td hidden>5</td>
+                                                    <th>500 square feet</th>
+                                                    <td>b / 11</td>
+                                                    <td hidden>Peter</td>
+                                                    <td>Sale</td>
+
+                                                    <td><a href="propertyA1.html"><i class="ti-location-pin"></i></a></td>
+                                                </tr>
+                                                <tr hidden>
+                                                    
+                                                    <td>111 Apartment</td>
+                                                    <td>Yuen Long</td>
+                                                    <td hidden>7000</td>
+                                                    <th >$7120k</th>
+                                                    <td hidden>NA</td>
+                                                    <th >N/A</th>
+                                                    <td hidden>7</td>
+                                                    <th>700 square feet</th>
+                                                    <td>C / 40</td>
+                                                    <td hidden>Peter</td>
+                                                    <td>Sale</td>
+
+                                                    <td><a href="propertyA1.html"><i class="ti-location-pin"></i></a></td>
+                                                </tr>
+                                                <tr hidden>
+                                                    <td>222 Apartment</td>
+                                                    <td>Tuen Mun</td>
+                                                    <td hidden>below</td>
+                                                    <th >$888k</th>
+                                                    <td hidden>NA</td>
+                                                    <th >N/A</th>
+                                                    <td hidden>below</td>
+                                                    <th>100 square feet</th>
+                                                    <td>A / 11</td>
+                                                    <td hidden>Peter</td>
+                                                    <td>Sale</td>
+
+                                                    <td><i class="ti-pencil" onclick="window.location.href='property_edit_info.html'" style="color: rgb(44, 135, 255);"></i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>333 Apartment</td>
+                                                    <td>MongKok</td>
+                                                    <td hidden>above</td>
+                                                    <th >$888888k</th>
+                                                    <td hidden>NA</td>
+                                                    <th >N/A</th>
+                                                    <td hidden>above</td>
+                                                    <th>2000 square feet</th>
+                                                    <td>A / 11</td>
+                                                    <td hidden>Tim</td>
+                                                    <td>Sale</td>
+
+                                                    <td><a href="propertyA1.html"><i class="ti-location-pin"></i></a></td>
+                                                    <td><i class="ti-pencil" onclick="window.location.href='property_edit_info.html'" style="color: rgb(44, 135, 255);"></i></td>
+                                                    <td><i class="ti-pin2" id="pin"></i></td>
+                                                    <td><i class="fa fa-eye" id="hide"></i></td>
+                                                    <td><i class="ti-close" id="close"></i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>333 Apartment</td>
+                                                    <td>MongKok</td>
+                                                    
+                                                    <td hidden>NA</td>
+                                                    <th >N/A</th>
+                                                    <td hidden>above</td>
+                                                    <th >$88k</th>
+                                                    <td hidden>above</td>
+                                                    <th>2000 square feet</th>
+                                                    <td>A / 11</td>
+                                                    <td hidden>Tim</td>
+                                                    <td>Rental</td>
+
+                                                    <td><a href="propertyA1.html"><i class="ti-location-pin"></i></a></td>
+                                                    <td><i class="ti-pencil" onclick="window.location.href='property_edit_info.html'" style="color: rgb(44, 135, 255);"></i></td>
+                                                    <td><i class="ti-pin2" id="pin"></i></td>
+                                                    <td><i class="fa fa-eye" id="hide"></i></td>
+                                                    <td><i class="ti-close" id="close"></i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><a href="property_add.html"><i class="fa fa-plus-square" ></i> <br> Add Property</a></td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Body here end -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- main content area end -->
+        <!-- footer area start-->
+        <footer>
+            <div class="footer-area">
+                <p>© Copyright 2018. All right reserved. Template by <a href="https://colorlib.com/wp/">Colorlib</a>.</p>
+            </div>
+        </footer>
+        <!-- footer area end-->
+    </div>
+    <!-- page container area end -->
+    <!-- offset area start -->
+    <!-- maps Resources -->
+    
+    <div class="offset-area">
+        <div class="offset-close"><i class="ti-close"></i></div>
+        <ul class="nav offset-menu-tab">
+            <li><a class="active" data-toggle="tab" href="#activity">Activity</a></li>
+            <li><a data-toggle="tab" href="#settings">Settings</a></li>
+        </ul>
+        <div class="offset-content tab-content">
+            <div id="activity" class="tab-pane fade in show active">
+                
+            </div>
+            <div id="settings" class="tab-pane fade">
+                
+            </div>
+        </div>
+    </div>
+    <!-- offset area end -->
+    <!-- jquery latest version -->
+    <script src="../assets/js/vendor/jquery-2.2.4.min.js"></script>
+    <!-- bootstrap 4 js -->
+    <script src="../assets/js/popper.min.js"></script>
+    <script src="../assets/js/bootstrap.min.js"></script>
+    <script src="../assets/js/owl.carousel.min.js"></script>
+    <script src="../assets/js/metisMenu.min.js"></script>
+    <script src="../assets/js/jquery.slimscroll.min.js"></script>
+    <script src="../assets/js/jquery.slicknav.min.js"></script>
+
+    <!-- others plugins -->
+    <script src="../assets/js/plugins.js"></script>
+    <script src="../assets/js/scripts.js"></script>
+</body>
+
+</html>
